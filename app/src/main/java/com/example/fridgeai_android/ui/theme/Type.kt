@@ -6,29 +6,90 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
+val SerifFamily = FontFamily.Serif
+val SansFamily = FontFamily.SansSerif
+
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
+    displayLarge = TextStyle(
+        fontFamily = SerifFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 72.sp,
+        lineHeight = 76.sp,
+        letterSpacing = (-1).sp
+    ),
+    headlineLarge = TextStyle(
+        fontFamily = SerifFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 34.sp,
+        lineHeight = 40.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = SerifFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 30.sp,
+        lineHeight = 36.sp
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = SerifFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 24.sp,
+        lineHeight = 30.sp
+    ),
     titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
+        fontFamily = SerifFamily,
+        fontWeight = FontWeight.Light,
         fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        lineHeight = 28.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 15.sp,
+        lineHeight = 20.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 10.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 2.sp
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp,
+        lineHeight = 22.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 13.sp,
+        lineHeight = 20.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 13.sp,
+        lineHeight = 18.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 13.sp,
+        lineHeight = 18.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 10.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 1.2.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontFamily = SansFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 10.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 1.sp
     )
-    */
 )

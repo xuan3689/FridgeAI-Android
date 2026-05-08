@@ -16,68 +16,70 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
-    primary = IceBlue60,
-    onPrimary = Color.White,
-    primaryContainer = IceBlue20,
-    onPrimaryContainer = IceBlue80,
-    
-    secondary = FreshGreen60,
-    onSecondary = Color.White,
-    secondaryContainer = FreshGreen20,
-    onSecondaryContainer = FreshGreen80,
-    
-    tertiary = WarningOrange60,
-    onTertiary = Color.White,
-    tertiaryContainer = WarningOrange20,
-    onTertiaryContainer = WarningOrange80,
-    
-    error = ErrorRed60,
-    onError = Color.White,
-    errorContainer = ErrorRed20,
-    onErrorContainer = ErrorRed80,
-    
-    background = Color(0xFF1C1C1E),
-    onBackground = Color(0xFFE5E5E7),
-    surface = Color(0xFF2C2C2E),
-    onSurface = Color(0xFFE5E5E7),
-    surfaceVariant = Color(0xFF3A3A3C),
-    onSurfaceVariant = Grey60
+private val EarthColorScheme = lightColorScheme(
+    primary = FridgeGreen,
+    onPrimary = FridgeL0,
+    primaryContainer = FridgeGreenL,
+    onPrimaryContainer = FridgeGreen,
+    secondary = FridgeInk2,
+    onSecondary = FridgeL0,
+    secondaryContainer = FridgeL1,
+    onSecondaryContainer = FridgeInk2,
+    tertiary = FridgeAmber,
+    onTertiary = FridgeL0,
+    tertiaryContainer = FridgeAmberL,
+    onTertiaryContainer = FridgeAmber,
+    error = FridgeRed,
+    onError = FridgeL0,
+    errorContainer = FridgeRedL,
+    onErrorContainer = FridgeRed,
+    background = FridgeBg,
+    onBackground = FridgeInk,
+    surface = FridgeL0,
+    onSurface = FridgeInk,
+    surfaceVariant = FridgeL1,
+    onSurfaceVariant = FridgeInk2,
+    outline = FridgeBorder,
+    outlineVariant = FridgeBorder2,
+    inverseSurface = FridgeInk,
+    inverseOnSurface = FridgeL0,
+    scrim = Color.Black.copy(alpha = 0.25f)
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = IceBlue40,
-    onPrimary = Color.White,
-    primaryContainer = IceBlue80,
-    onPrimaryContainer = IceBlue20,
-    
-    secondary = FreshGreen40,
-    onSecondary = Color.White,
-    secondaryContainer = FreshGreen80,
-    onSecondaryContainer = FreshGreen20,
-    
-    tertiary = WarningOrange40,
-    onTertiary = Color.White,
-    tertiaryContainer = WarningOrange80,
-    onTertiaryContainer = WarningOrange20,
-    
-    error = ErrorRed40,
-    onError = Color.White,
-    errorContainer = ErrorRed80,
-    onErrorContainer = ErrorRed20,
-    
-    background = Color(0xFFFAFAFA),
-    onBackground = Color(0xFF1C1C1E),
-    surface = Color.White,
-    onSurface = Color(0xFF1C1C1E),
-    surfaceVariant = Grey90,
-    onSurfaceVariant = Grey40
+private val EarthDarkColorScheme = darkColorScheme(
+    primary = FridgeGreen,
+    onPrimary = FridgeL0,
+    primaryContainer = FridgeGreenL,
+    onPrimaryContainer = FridgeGreen,
+    secondary = FridgeInk2,
+    onSecondary = FridgeL0,
+    secondaryContainer = FridgeL1,
+    onSecondaryContainer = FridgeInk2,
+    tertiary = FridgeAmber,
+    onTertiary = FridgeL0,
+    tertiaryContainer = FridgeAmberL,
+    onTertiaryContainer = FridgeAmber,
+    error = FridgeRed,
+    onError = FridgeL0,
+    errorContainer = FridgeRedL,
+    onErrorContainer = FridgeRed,
+    background = FridgeBg,
+    onBackground = FridgeInk,
+    surface = FridgeL0,
+    onSurface = FridgeInk,
+    surfaceVariant = FridgeL1,
+    onSurfaceVariant = FridgeInk2,
+    outline = FridgeBorder,
+    outlineVariant = FridgeBorder2,
+    inverseSurface = FridgeInk,
+    inverseOnSurface = FridgeL0,
+    scrim = Color.Black.copy(alpha = 0.25f)
 )
 
 @Composable
 fun FridgeAIAndroidTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // 关闭动态颜色以使用自定义主题
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -85,16 +87,18 @@ fun FridgeAIAndroidTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> EarthDarkColorScheme
+        else -> EarthColorScheme
     }
     
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            window.statusBarColor = FridgeBg.toArgb()
+            window.navigationBarColor = FridgeL0.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
+            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = true
         }
     }
 

@@ -1,19 +1,42 @@
 package com.example.fridgeai_android.ui.screens.recipe
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.fridgeai_android.data.model.Recipe
+import com.example.fridgeai_android.ui.theme.FridgeBorder
+import com.example.fridgeai_android.ui.theme.FridgeGreen
+import com.example.fridgeai_android.ui.theme.FridgeGreenL
+import com.example.fridgeai_android.ui.theme.FridgeInk2
+import com.example.fridgeai_android.ui.theme.FridgeL0
+import com.example.fridgeai_android.ui.theme.FridgeL1
 
 @Composable
 fun RecipeDetailDialog(
@@ -25,126 +48,87 @@ fun RecipeDetailDialog(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.9f),
-            shape = RoundedCornerShape(16.dp)
+            shape = RoundedCornerShape(10.dp),
+            colors = CardDefaults.cardColors(containerColor = FridgeL0),
+            border = BorderStroke(0.5.dp, FridgeBorder),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                // 标题栏
+            Column(modifier = Modifier.fillMaxSize()) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(18.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = recipe.name,
                         style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(onClick = onDismiss) {
-                        Icon(Icons.Default.Close, contentDescription = "关闭")
+                        Icon(Icons.Default.Close, contentDescription = "关闭", tint = FridgeInk2)
                     }
                 }
-                
-                Divider()
-                
-                // 内容
+
+                Divider(color = FridgeBorder)
+
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp),
+                        .padding(18.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // 基本信息
                     item {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            InfoChip(
-                                icon = Icons.Default.Timer,
-                                label = "烹饪时间",
-                                value = "${recipe.cookingTime}分钟"
-                            )
-                            InfoChip(
-                                icon = Icons.Default.Star,
-                                label = "难度",
-                                value = recipe.difficulty
-                            )
+                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            InfoChip(Icons.Default.Timer, "烹饪时间", "${recipe.cookingTime}分钟")
+                            InfoChip(Icons.Default.Star, "难度", recipe.difficulty)
                         }
                     }
-                    
-                    // 所需食材
+
                     item {
-                        Text(
-                            text = "所需食材",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+                        Text("INGREDIENTS", style = MaterialTheme.typography.titleSmall, color = FridgeInk2)
                     }
-                    
+
                     itemsIndexed(recipe.ingredients) { index, ingredient ->
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Surface(
-                                shape = RoundedCornerShape(4.dp),
-                                color = MaterialTheme.colorScheme.primaryContainer
-                            ) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Surface(shape = RoundedCornerShape(4.dp), color = FridgeGreenL) {
                                 Text(
                                     text = "${index + 1}",
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                                    color = FridgeGreen
                                 )
                             }
-                            Text(
-                                text = ingredient,
-                                style = MaterialTheme.typography.bodyMedium
-                            )
+                            Text(ingredient, style = MaterialTheme.typography.bodyMedium)
                         }
                     }
-                    
-                    // 制作步骤
+
                     item {
-                        Text(
-                            text = "制作步骤",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+                        Text("STEPS", style = MaterialTheme.typography.titleSmall, color = FridgeInk2)
                     }
-                    
+
                     itemsIndexed(recipe.steps) { index, step ->
                         Card(
                             modifier = Modifier.fillMaxWidth(),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceVariant
-                            )
+                            colors = CardDefaults.cardColors(containerColor = FridgeL1),
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(0.5.dp, FridgeBorder),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                         ) {
                             Row(
                                 modifier = Modifier.padding(12.dp),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
-                                Surface(
-                                    shape = RoundedCornerShape(8.dp),
-                                    color = MaterialTheme.colorScheme.primary
-                                ) {
+                                Surface(shape = RoundedCornerShape(6.dp), color = FridgeGreen) {
                                     Text(
                                         text = "${index + 1}",
-                                        modifier = Modifier.padding(8.dp),
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onPrimary
+                                        modifier = Modifier.padding(horizontal = 9.dp, vertical = 6.dp),
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = FridgeL0
                                     )
                                 }
-                                Text(
-                                    text = step,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    modifier = Modifier.weight(1f)
-                                )
+                                Text(step, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                             }
                         }
                     }
@@ -155,39 +139,22 @@ fun RecipeDetailDialog(
 }
 
 @Composable
-fun InfoChip(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    label: String,
-    value: String
-) {
+fun InfoChip(icon: ImageVector, label: String, value: String) {
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer
-        )
+        colors = CardDefaults.cardColors(containerColor = FridgeGreenL),
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(0.5.dp, FridgeBorder),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Row(
             modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Icon(
-                icon,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp),
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
-            )
+            Icon(icon, contentDescription = null, modifier = Modifier.size(18.dp), tint = FridgeGreen)
             Column {
-                Text(
-                    text = label,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-                Text(
-                    text = value,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
+                Text(label, style = MaterialTheme.typography.labelSmall, color = FridgeInk2)
+                Text(value, style = MaterialTheme.typography.bodyMedium, color = FridgeGreen)
             }
         }
     }
